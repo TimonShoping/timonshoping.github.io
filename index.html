@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Иконка сайта (Favicon) — чтобы картинка горела на вкладке браузера и в поиске Яндекса -->
+    <link rel="icon" type="image/jpeg" href="./avatar.jpg">
+    <link rel="apple-touch-icon" href="./avatar.jpg">
+
+    <!-- Open Graph (Для ТикТока, Телеграма, Дискорда) — чтобы ссылка прикреплялась с красивой обложкой -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="👑 Timon Shop — Царский Маркетплейс Игр и DLC">
+    <meta property="og:description" content="Моментальная покупка DLC Dead by Daylight, Rust и пополнение Steam по самым сочным ценам! Заходи и забирай свои игры.">
+    <meta property="og:url" content="https://github.io">
+    <meta property="og:image" content="https://github.ioavatar.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Timon Shop / Магазин игровых товаров</title>
@@ -731,12 +743,7 @@
                 <span id="promo-status-msg" style="display: block; font-size: 11px; margin-top: 5px; font-weight: 600;"></span>
             </div>
 
-               <!-- ==================================================== -->
-            <!-- 🛒 ВСТРОЕННАЯ УМНАЯ КОРЗИНА (СТАТИЧНАЯ В МЕНЮ) -->
-            <!-- ==================================================== -->
-           <!-- ТЕПЕРЬ ФОРМА АДАПТИРОВАНА ПОД ЛЮБЫЕ ПЛАТЁЖКИ -->
-                 <form action="#" method="get" target="_blank" id="lava-cart-form" onsubmit="handleCzarPayment(event)">
-                    
+              
                     <!-- Компактная плашка СБП для модераторов -->
                     <div style="margin-bottom: 12px; background: rgba(80, 250, 123, 0.05); border: 1px solid rgba(80, 250, 123, 0.2); padding: 10px; border-radius: 8px; text-align: center;">
                         <span style="color: #50fa7b; font-size: 13px; font-weight: 800; display: block; letter-spacing: 0.5px;">📲 СПОСОБ ОПЛАТЫ: СБП</span>
@@ -784,14 +791,14 @@
         <!-- ГЛАВНЫЙ БЛОК ВИТРИНЫ (ПОИСК, КАТЕГОРИИ И ТОВАРЫ) -->
         <!-- ==================================================== -->
         <div class="tabs-container">
-            <!-- 🗂️ РАСШИРЕННЫЕ КНОПКИ КАТЕГОРИЙ (ОБНОВЛЕНО) -->
+            <!-- 🗂️ КНОПКИ КАТЕГОРИЙ (ДОБАВЛЕН КОНКРЕТНЫЙ РАЗДЕЛ RESIDENT EVIL) -->
         <div class="tabs-container" style="display: flex; gap: 6px; margin-bottom: 25px; width: 100%; overflow-x: auto; padding-bottom: 5px;">
             <button class="tab-btn active" onclick="openTab('tab-dbd')" style="white-space: nowrap;">🎮 Dead by Daylight</button>
             <button class="tab-btn" onclick="openTab('tab-rust')" style="white-space: nowrap;">☢️ Rust DLC & Gift</button>
+            <button class="tab-btn" onclick="openTab('tab-re')" style="white-space: nowrap;">🧟 Resident Evil</button>
             <button class="tab-btn" onclick="openTab('tab-hits')" style="white-space: nowrap;">🔥 Топ Хиты Steam</button>
             <button class="tab-btn" onclick="openTab('tab-balance')" style="white-space: nowrap;">💳 Пополнение баланса</button>
         </div>
-            
            
             <!-- Панель выбора игр (Категории) -->
             <div class="tabs-nav">
@@ -1049,7 +1056,15 @@
                    
                 </div>
 
-            </div> <!-- Конец коробки Rust -->
+            </div>
+
+             <!-- Конец коробки Rust -->
+             <!-- ==================================================== -->
+            <!-- ☢️ КАТЕГОРИЯ 3: RESDENT EVIL  -->
+            <!-- ==================================================== -->
+            <div id="tab-rust" class="tab-content">
+
+            </div>
 
            
 
@@ -1058,35 +1073,21 @@
 </div> <!-- Конец коробки Рандома -->
  <!-- 🛒 УМНОЕ ОКНО КОРЗИНЫ (ПО УМОЛЧАНИЮ СКРЫТО) -->
         
-            <!-- 👇 ШАПКА КОРЗИНЫ С КНОПКОЙ ОТМЕНЫ ВСЕГО 👇 -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="color: #ffffff; font-size: 16px; margin: 0;">🛒 Ваш заказ:</h3>
-                <!-- При клике запускается функция clearCart(), которая очистит всё -->
-                <button type="button" onclick="clearCart()" style="background: none; border: none; color: #ff5555; font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline; padding: 5px;">Отменить всё</button>
-            </div>
-            
-            <!-- Сюда JavaScript будет сам складывать набранные товары -->
-            <div id="cart-items"></div> 
-            
-            <!-- Итоговая строчка -->
-            <div class="cart-total">
-                <span>Итого к оплате:</span>
-                <span id="cart-total-price">0 ₽</span>
-            </div>
+         
             
             <!-- НЕВИДИМАЯ СЕКРЕТНАЯ ФОРМА ДЛЯ ОТПРАВКИ ОБЩЕГО СЧЁТА В LAVA -->
-            <form action="https://lava.ru" method="get" target="_blank" id="lava-cart-form">
-                <!-- ВНИМАНИЕ: Сюда в value вместо текста вставь свой реальный ID проекта из Lava -->
-                <input type="hidden" name="merchantId" value="27f96baa-e24b-4274-b37b-4d153ee727a1">
-                <input type="hidden" name="currency" value="RUB">
-                
-                <!-- Эти два поля JavaScript заполнит сам автоматически перед оплатой -->
-                <input type="hidden" id="lava-cart-amount" name="amount" value="0">
-                <input type="hidden" id="lava-cart-comment" name="comment" value="">
-                
-                <!-- Большая фиолетовая кнопка оплаты всего заказа -->
-                <button type="submit" class="checkout-btn">Оформить и оплатить заказ через Lava</button>
-            </form>
+            <form action="#" method="get" target="_blank" id="lava-cart-form" onsubmit="handleCzarPayment(event)">
+                    
+                    
+
+                  
+
+                    <!-- Скрытые технические поля для хранения сумм -->
+                    <input type="hidden" id="lava-cart-amount" name="amount" value="0">
+                    <input type="hidden" id="lava-cart-comment" name="comment" value="">
+                    
+                   
+                </form>
         </div>
     </div>
     <div class="legal-info" style="margin-top: 25px; font-size: 11px; color: #7b7193; text-align: center; line-height: 1.6;">
@@ -1139,8 +1140,74 @@
 
                 <p style="margin: 0;"><strong>4. Разрешение споров:</strong> При возникновении любых спорных ситуаций Покупатель должен обратиться в поддержку по официальному адресу Telegram: <a href="tg://resolve?domain=TimonShopPodderjka_bot" style="color: #50fa7b; font-weight: bold; text-decoration: underline;">@TimonShopPodderjka_bot</a>. Мы гарантируем решение любого вопроса в пользу клиента.</p>
             </div>
+             <!-
+
+    <!-- 2. Секретное всплывающее окно авторизации и реквизитов -->
+    <div id="secret-admin-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 200000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div style="background: #150d2a; border: 2px solid #bc13fe; padding: 25px; border-radius: 12px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 0 25px rgba(188,19,254,0.4); position: relative;">
+            
+            <!-- Крестик закрытия -->
+            <button type="button" onclick="closeSecretAdminModal()" style="position: absolute; top: 10px; right: 15px; background: transparent; color: #ff5555; border: none; font-size: 24px; cursor: pointer; font-weight: bold;">&times;</button>
+            
+                  <!-- ==================================================== -->
+    <!-- 🔒 НЕУЯЗВИМЫЙ СЕКРЕТНЫЙ БЛОК ДЛЯ МОДЕРАТОРОВ (БЕЗ JS)-->
+    <!-- ==================================================== -->
+    
+    <!-- Скрытый триггер-чекбокс для управления окном -->
+    <input type="checkbox" id="czar-legal-toggle" style="display: none;">
+
+    <!-- 1. Сочная неоновая кнопка -->
+    <div style="text-align: center; margin-top: 25px; margin-bottom: 25px;">
+        <label for="czar-legal-toggle" id="czar-legal-trigger-label" style="display: inline-block; background: rgba(188, 19, 254, 0.05); border: 1px solid #bc13fe; color: #bc13fe; padding: 10px 20px; font-size: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 0 10px rgba(188, 19, 254, 0.2); transition: all 0.3s ease; user-select: none; font-family: sans-serif;">
+            🔒 Реквизиты организации (Для модерации)
+        </label>
+    </div>
+
+    <!-- 2. Секретное всплывающее окно -->
+    <div id="czar-legal-window" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 9999999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+        <div style="background: #150d2a; border: 2px solid #bc13fe; padding: 25px; border-radius: 12px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 0 25px rgba(188,19,254,0.4); position: relative; font-family: sans-serif;">
+            
+            <!-- Кнопка-крестик для закрытия -->
+            <label for="czar-legal-toggle" style="position: absolute; top: 10px; right: 15px; background: transparent; color: #ff5555; border: none; font-size: 26px; cursor: pointer; font-weight: bold; user-select: none;">&times;</label>
+            
+            <!-- Форма авторизации -->
+            <div id="czar-legal-auth">
+                <h2 style="color: #50fa7b; font-size: 15px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px; font-weight: bold; margin-top: 10px;">Вход для модераторов</h2>
+                <input type="text" id="czar-legal-user" placeholder="Логин" style="width: 100%; padding: 11px; margin-bottom: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #ffffff; text-align: center; outline: none; box-sizing: border-box; font-size: 13px;">
+                <input type="password" id="czar-legal-password" placeholder="Пароль" style="width: 100%; padding: 11px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #ffffff; text-align: center; outline: none; box-sizing: border-box; font-size: 13px;">
+                <button type="button" onclick="checkCzarCredentialsDirectly()" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #bc13fe 0%, #7b13fe 100%); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">Войти</button>
+            </div>
+
+            <!-- Твои реальные юридические данные Данилы Александровича -->
+            <div id="czar-legal-data" style="display: none; text-align: left; line-height: 1.6; font-size: 13px; color: #ffffff;">
+                <span style="color: #50fa7b; font-weight: bold; display: block; margin-bottom: 15px; text-align: center; font-size: 14px;">✅ АВТОРИЗАЦИЯ УСПЕШНА</span>
+                <p style="margin: 5px 0;"><strong>📋 Проект:</strong> Маркетплейс Timon Shop</p>
+                <p style="margin: 5px 0;"><strong>👤 ФИО:</strong> Максаков Данила Александрович</p>
+                <p style="margin: 5px 0;"><strong>🆔 ИНН Самозанятого:</strong> 026209290048</p>
+                <p style="margin: 5px 0;"><strong>📞 Телефон:</strong> +7 (927) 944-39-54</p>
+                <p style="margin: 5px 0;"><strong>📧 Email:</strong> danila17072010@gmail.com</p>
+                <p style="margin: 5px 0;"><strong>📍 Почтовый адрес:</strong> 453300, Россия, г. Кумертау, ул. Салавата 8</p>
+                <hr style="border-color: rgba(188,19,254,0.2); margin: 15px 0;">
+                <p style="font-size: 11px; color: #a9a1bc; text-align: justify;"><strong>📄 Публичная оферта:</strong> Все товары на сайте являются цифровой продукцией (Steam Gift) и доставляются на аккаунт покупателя в течение 24 часов после подтверждения успешной оплаты. Возврат средств после передачи товара невозможен.</p>
+            </div>
 
         </div>
+    </div>
+
+    <!-- Твёрдые CSS правила для отображения без участия JS-скриптов -->
+    <style>
+        #czar-legal-trigger-label:hover {
+            background: rgba(80, 250, 123, 0.1) !important;
+            border-color: #50fa7b !important;
+            color: #50fa7b !important;
+            box-shadow: 0 0 15px rgba(80, 250, 123, 0.4) !important;
+            transform: scale(1.03);
+        }
+        /* Умное переключение видимости окна через CSS-чекбокс */
+        #czar-legal-toggle:checked ~ #czar-legal-window {
+            display: flex !important;
+        }
+    </style>
         </main>
         
         
@@ -1199,120 +1266,7 @@
             });
         }
 
-        // ====================================================
-        // 3. КОРЗИНА И ПРОМОКОДЫ
-        // ====================================================
-        let cart = []; 
-        let currentDiscountPercent = 0; 
-        let isTimonPromoBurned = false; 
-
-        function addToCart(name, price) {
-            cart.push({ name: name, price: price });
-            updateCartUI();
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-        }
-
-        function clearCart() {
-            cart = [];
-            updateCartUI();
-        }
-
-        function activatePromo() {
-            let input = document.getElementById('promo-input');
-            let msg = document.getElementById('promo-status-msg');
-            if (!input || !msg) return;
-            
-            let originalCode = input.value.trim();
-
-            // 👑 ВХОД ДЛЯ АДМИНА
-            if (originalCode === "Db23a1a2z++") {
-                let adminPanel = document.getElementById('admin-support-panel');
-                let buyerContent = document.getElementById('buyer-normal-content');
-                if (adminPanel) {
-                    if (buyerContent) buyerContent.style.display = 'none';
-                    adminPanel.style.display = 'flex'; 
-                    msg.style.color = "#50fa7b";
-                    msg.innerText = "🔑 Пульт Царя Батюшки открыт.";
-                    input.value = "";
-                    loadAdminChats(); 
-                }
-                return;
-            }
-
-            let upperCode = originalCode.toUpperCase();
-
-            if (upperCode === "TIMON") {
-                if (isTimonPromoBurned === true) {
-                    msg.style.color = "#ff5555";
-                    msg.innerText = "❌ Этот промокод уже сгорел!";
-                    input.value = "";
-                    return;
-                }
-                currentDiscountPercent = 10; 
-                isTimonPromoBurned = true;   
-                msg.style.color = "#50fa7b";
-                msg.innerText = "🎉 Скидка 10% применена.";
-                input.value = "";
-                updateCartUI(); 
-            } else if (originalCode === "") {
-                msg.style.color = "#ff5555";
-                msg.innerText = "⚠ Введите промокод!";
-            } else {
-                msg.style.color = "#ff5555";
-                msg.innerText = "❌ Неверный промокод!";
-            }
-        }
-
-        function updateCartUI() {
-            let cartItemsDiv = document.getElementById('cart-items');
-            let totalPriceSpan = document.getElementById('cart-total-price');
-
-            if (!cartItemsDiv || !totalPriceSpan) return;
-
-            if (cart.length === 0) {
-                cartItemsDiv.innerHTML = '<div style="color: #7b7193; font-size: 12px; font-style: italic; text-align: center; padding: 10px 0;">Корзина пуста</div>';
-                totalPriceSpan.innerText = '0 ₽';
-                return;
-            }
-
-            toggleSidebar(true);
-            cartItemsDiv.innerHTML = '';
-            let total = 0;
-            let itemsNames = [];
-
-            cart.forEach((item, index) => {
-                total += item.price;
-                itemsNames.push(item.name);
-                cartItemsDiv.innerHTML += `
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="color: #ffffff; font-size: 12px;">• ${item.name} (${item.price} ₽)</span>
-                        <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #ff5555; cursor: pointer;">❌</button>
-                    </div>`;
-            });
-
-            let discountAmount = (total * currentDiscountPercent) / 100;
-            let maxDiscount = discountAmount;
-
-            if (currentDiscountPercent > 0) {
-                if (total <= 500) maxDiscount = 50;
-                else if (total <= 1000) maxDiscount = 100;
-                else if (total <= 10000) maxDiscount = 1000;
-                if (discountAmount > maxDiscount) discountAmount = maxDiscount;
-            }
-
-            let finalTotal = total - discountAmount;
-            totalPriceSpan.innerText = finalTotal + ' ₽';
-            
-            let lavaAmount = document.getElementById('lava-cart-amount');
-            let lavaComment = document.getElementById('lava-cart-comment');
-            if (lavaAmount) lavaAmount.value = finalTotal;
-            if (lavaComment) lavaComment.value = "Заказ: " + itemsNames.join(', ');
-        }
-
+      
         // ====================================================
         // 4. ПРОФИЛИ И ИСПРАВЛЕННЫЙ ЖИВОЙ ЧАТ
         // ====================================================
@@ -1455,53 +1409,101 @@
             input.value = "";
             showToast("👑 Ответ отправлен!");
         }
-          // Живой запуск автоматической оплаты через шлюз Lava с твоим Shop ID
+           // Официальный запуск формы Lava Business с привязкой Стим-аккаунта покупателя
         function handleCzarPayment(event) {
-            event.preventDefault(); // Останавливаем обычную перезагрузку страницы
+            event.preventDefault(); // Останавливаем перезагрузку страницы
 
             let finalAmount = document.getElementById('lava-cart-amount').value;
+            let steamInput = document.getElementById('steam-account-input').value.trim();
             
-            if (!finalAmount || finalAmount == 0 || cart.length === 0) {
-                alert("⚠ Ваша корзина пуста! Добавьте DLC или игры для оплаты.");
-                return;
-            }
-
-            // 👑 ТВОЙ ЛИЧНЫЙ ОФИЦИАЛЬНЫЙ SHOP ID УСПЕШНО ИНТЕГРИРОВАН
-            let myShopId = "27f96baa-e24b-4274-b37b-4d153ee727a1"; 
-
-            // Собираем названия всех товаров из корзины в один текст для чека Lava
-            let itemsNames = cart.map(item => item.name).join(', ');
-            let orderComment = "Заказ: " + itemsNames;
-
-            // Формируем безопасный прямой адрес платёжной страницы Lava
-            let lavaPayUrl = `https://lava.ru{myShopId}&amount=${finalAmount}&comment=${encodeURIComponent(orderComment)}`;
-
-            // Направляем покупателя прямо на экран оплаты СБП / Карт!
-            window.open(lavaPayUrl, '_blank');
             
-            showToast("💸 Перенаправление на безопасную оплату Lava...");
         }
-
-        window.addEventListener('DOMContentLoaded', initBuyerProfile);
-           function payDirectLava(productName, price) {
-            // Твой официальный, верифицированный ID проекта в Lava
-            let myShopId = "27f96baa-e24b-4274-b37b-4d153ee727a1"; 
+         // 1. Создаём красивую неоновую кнопку в самом низу сайта автоматически
+        document.addEventListener('DOMContentLoaded', function() {
+            let czarContainer = document.createElement('div');
+            czarContainer.style.textAlign = 'center';
+            czarContainer.style.marginTop = '40px';
+            czarContainer.style.marginBottom = '30px';
+            czarContainer.style.fontFamily = 'sans-serif';
             
-            // Название товара, которое покупатель увидит в чеке
-            let orderComment = "Покупка в Timon Shop: " + productName;
-
-            // Вечный шлюз публичной платёжной формы Lava (не требует подписей и токенов)
-            let finalLavaUrl = `https://lava.ru{myShopId}&amount=${price}&comment=${encodeURIComponent(orderComment)}`;
-
-            // Мгновенно перенаправляем покупателя на чистый экран СБП / Карт!
-            window.open(finalLavaUrl, '_blank');
+            czarContainer.innerHTML = `
+                <button type="button" id="czar-legal-trigger" style="background: rgba(188, 19, 254, 0.05); border: 2px solid #bc13fe; color: #bc13fe; padding: 12px 24px; font-size: 12px; font-weight: bold; border-radius: 6px; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 0 15px rgba(188, 19, 254, 0.3); transition: all 0.3s ease;">
+                    🔒 Реквизиты организации (Для модерации)
+                </button>
+            `;
             
-            if (typeof showToast === "function") {
-                showToast("💸 Перенаправление на безопасную оплату Lava...");
-            }
-        }
+            document.body.appendChild(czarContainer);
+
+            // 2. Создаём скрытое всплывающее окно
+            let czarModal = document.createElement('div');
+            czarModal.id = 'czar-legal-window';
+            czarModal.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 9999999; justify-content: center; align-items: center; backdrop-filter: blur(5px); font-family: sans-serif;';
+            
+            czarModal.innerHTML = `
+                <div style="background: #150d2a; border: 2px solid #bc13fe; padding: 25px; border-radius: 12px; width: 90%; max-width: 380px; text-align: center; box-shadow: 0 0 25px rgba(188,19,254,0.4); position: relative;">
+                    <button type="button" id="czar-legal-close" style="position: absolute; top: 10px; right: 15px; background: transparent; color: #ff5555; border: none; font-size: 30px; cursor: pointer; font-weight: bold;">&times;</button>
+                    
+                    <div id="czar-auth-inside">
+                        <h2 style="color: #50fa7b; font-size: 15px; text-transform: uppercase; margin-bottom: 20px; letter-spacing: 0.5px; font-weight: bold; margin-top: 15px;">Вход для модераторов</h2>
+                        <input type="text" id="czar-user-field" placeholder="Логин" style="width: 100%; padding: 11px; margin-bottom: 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #ffffff; text-align: center; outline: none; box-sizing: border-box; font-size: 13px;">
+                        <input type="password" id="czar-pass-field" placeholder="Пароль" style="width: 100%; padding: 11px; margin-bottom: 15px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: #ffffff; text-align: center; outline: none; box-sizing: border-box; font-size: 13px;">
+                        <button type="button" id="czar-btn-submit" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #bc13fe 0%, #7b13fe 100%); color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px;">Войти</button>
+                    </div>
+
+                    <div id="czar-data-inside" style="display: none; text-align: left; line-height: 1.6; font-size: 13px; color: #ffffff;">
+                        <span style="color: #50fa7b; font-weight: bold; display: block; margin-bottom: 15px; text-align: center; font-size: 14px;">✅ АВТОРИЗАЦИЯ УСПЕШНА</span>
+                        <p style="margin: 5px 0;"><strong>📋 Проект:</strong> Маркетплейс Timon Shop</p>
+                        <p style="margin: 5px 0;"><strong>👤 ФИО:</strong> Максаков Данила Александрович</p>
+                        <p style="margin: 5px 0;"><strong>🆔 ИНН Самозанятого:</strong> 026209290048</p>
+                        <p style="margin: 5px 0;"><strong>📞 Телефон:</strong> +7 (927) 944-39-54</p>
+                        <p style="margin: 5px 0;"><strong>📧 Email:</strong> danila17072010@gmail.com</p>
+                        <p style="margin: 5px 0;"><strong>📍 Почтовый адрес:</strong> 453300, Россия, г. Кумертау, ул. Салавата 8</p>
+                        <hr style="border-color: rgba(188,19,254,0.2); margin: 15px 0;">
+                        <p style="font-size: 11px; color: #a9a1bc; text-align: justify;"><strong>📄 Публичная оферта:</strong> Все товары на сайте являются цифровой продукцией (Steam Gift) и доставляются на аккаунт покупателя в течение 24 часов после подтверждения успешной оплаты. Возврат средств после передачи товара невозможен.</p>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(czarModal);
+
+            // 3. Добавляем эффекты наведения на кнопку через код
+            let triggerBtn = document.getElementById('czar-legal-trigger');
+            triggerBtn.addEventListener('mouseenter', () => {
+                triggerBtn.style.background = 'rgba(80, 250, 123, 0.1)';
+                triggerBtn.style.borderColor = '#50fa7b';
+                triggerBtn.style.color = '#50fa7b';
+                triggerBtn.style.boxShadow = '0 0 20px rgba(80, 250, 123, 0.5)';
+            });
+            triggerBtn.addEventListener('mouseleave', () => {
+                triggerBtn.style.background = 'rgba(188, 19, 254, 0.05)';
+                triggerBtn.style.borderColor = '#bc13fe';
+                triggerBtn.style.color = '#bc13fe';
+                triggerBtn.style.boxShadow = '0 0 15px rgba(188, 19, 254, 0.3)';
+            });
+
+            // 4. Логика кликов (Открыть, закрыть, войти)
+            triggerBtn.addEventListener('click', () => {
+                document.getElementById('czar-auth-inside').style.display = 'block';
+                document.getElementById('czar-data-inside').style.display = 'none';
+                czarModal.style.display = 'flex';
+            });
+
+            document.getElementById('czar-legal-close').addEventListener('click', () => {
+                czarModal.style.display = 'none';
+            });
+
+            document.getElementById('czar-btn-submit').addEventListener('click', () => {
+                let u = document.getElementById('czar-user-field').value.trim();
+                let p = document.getElementById('czar-pass-field').value.trim();
+                if (u === "admin" && p === "timon2026") {
+                    document.getElementById('czar-auth-inside').style.display = 'none';
+                    document.getElementById('czar-data-inside').style.display = 'block';
+                } else {
+                    alert("❌ Ошибка! Неверный логин или пароль.");
+                }
+            });
+        });
     </script>
-     <!-- Тег скрипта красиво закрывается -->
+    
 </body> <!-- Тег тела красиво закрывается -->
 </html> <!-- Конец файла -->
 </script>
