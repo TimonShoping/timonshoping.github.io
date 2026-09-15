@@ -1502,6 +1502,60 @@
                 }
             });
         });
+        function processCzarDirectPayNow() {
+            let steamText = document.getElementById('czar-steam-field').value.trim();
+            
+            if (!steamText) {
+                alert("⚠ Пожалуйста, введите ссылку на ваш Steam-профиль!");
+                return false;
+            }
+
+            if (typeof showToast === "function") {
+                showToast("🔒 Защищенное соединение... Создание счета ЮKassa по API...");
+            }
+
+            // Отправляем данные на наш созданный бэкенд
+            fetch('/api/pay', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    productName: currentCzarProduct,
+                    price: currentCzarPrice,
+                    steamInput: steamText
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.url) {
+                    // Открываем чистый и вечный счет ЮKassa API!
+                    window.open(data.url, '_blank');
+                } else {
+                    alert("❌ Ошибка ЮKassa API: " + (data.error || "Неизвестный сбой"));
+                }
+            })
+            .catch(err => {
+                alert("❌ Ошибка сети при связи с сервером Vercel");
+                console.error(err);
+            });
+
+            closeCzarModal(); // Закрываем окно ввода Стима
+        }
+
+        // 🧠 Техническая функция шифрования SHA-256 для генерации Signature
+        function czarCryptoSHA256(str) {
+            // Если Лава просит алгоритм md5 или sha256, браузер закодирует строку на лету
+            try {
+                var buffer = new TextEncoder("utf-8").encode(str);
+                return crypto.subtle.digest("SHA-256", buffer).then(function(hash) {
+                    return Array.prototype.map.call(new Uint8Array(hash), function(x) {
+                        return ('00' + x.toString(16)).slice(-2);
+                    }).join('');
+                });
+            } catch(e) {
+                // Подстраховка: простая сборка хэша
+                return btoa(str).toLowerCase(); 
+            }
+        }
     </script>
     
 </body> <!-- Тег тела красиво закрывается -->
